@@ -1,0 +1,48 @@
+---
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <link rel="stylesheet" href="../styles" />
+  </head>
+  <body class="text-slate-900">
+    <slot />
+  </body>
+</html>
+<style is:global>
+  @import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300&family=NTR&family=Flamenco&family=Jost:wght@700&family=Libre+Franklin&display=swap");
+
+  :root {
+    --averia-serif-libre: "Averia Serif Libre", cursive;
+    --ntr: "NTR", sans-serif;
+    --flamenco: "Flamenco", cursive;
+    --jost: "jost", sans-serif;
+    --libre-franklin: "Libre Franklin", sans-serif;
+  }
+  .font-averia-serif-libre {
+    font-family: var(--averia-serif-libre);
+  }
+  /* .font-ntr {
+    font-family: var(--ntr);
+  } */
+  .font-flamenco {
+    font-family: var(--flamenco);
+  }
+  .font-jost {
+    font-family: var(--jost);
+  }
+  .font-libre-franklin {
+    font-family: var(--libre-franklin);
+  }
+</style>

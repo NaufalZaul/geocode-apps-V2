@@ -1,0 +1,8 @@
+---
+const { style, value, id } = Astro.props;
+---
+
+<button type="submit" class={style} id={id}>
+  {value}
+  <slot />
+</button>

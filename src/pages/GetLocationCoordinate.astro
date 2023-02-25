@@ -1,0 +1,121 @@
+---
+import Button from "../components/Button.astro";
+import Navbar from "../components/Navbar.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Link from "../components/Link.astro";
+---
+
+<BaseLayout title="API Apps">
+  <div class="bg-emerald-400">
+    <Navbar classNav="bg-slate-100 shadow-lg" />
+    <div
+      class="grid self-center px-10 py-12 dekstop:grid-cols-2 dekstop:m-auto"
+    >
+      <div class="">
+        <img
+          src="/clay-banks-b5S4FrJb7yQ-unsplash.jpg"
+          class="w-4/5 m-auto rounded shadow-xl ipad:w-1/2"
+          alt=""
+        />
+      </div>
+      <div class="self-center mt-8 dekstop:w-4/5 dekstop:mt-0">
+        <h1 class="font-jost text-4xl mb-5 ipad:text-5xl dekstop:text-6xl">
+          Lorem ipsum dolor sit amet.
+        </h1>
+        <p class="font-libre-franklin text-lg ipad:text-xl">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt
+          aspernatur quibusdam placeat cumque earum assumenda, at saepe
+          perspiciatis impedit inventore tenetur, alias voluptatem corrupti
+          nesciunt praesentium iure quod nemo architecto! Lorem ipsum dolor sit
+          amet consectetur adipisicing elit.
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-slate-900 text-slate-50 py-16">
+      <div
+        class="grid gap-2 text-center px-8 mb-16 dekstop:text-start dekstop:grid-cols-2"
+      >
+        <h1 class="font-jost text-4xl mb-4 dekstop:text-5xl">
+          Get Your Location With Coordinate Point
+        </h1>
+        <div class="text-center font-libre-franklin">
+          <p class="text-lg mb-8 dekstop:mb-3">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam,
+            quaerat. <span class="text-emerald-600"> Country</span>
+          </p>
+          <Link
+            link="/GetLocationCountry/"
+            style="border rounded text-sm px-3 py-2 bg-emerald-600 text-white"
+            title="Search Location"
+          />
+        </div>
+      </div>
+      <h1 class="font-jost text-2xl capitalize text-center py-6">
+        input value of latitude and longitude from that country
+      </h1>
+      <div
+        class="flex justify-center flex-col mx-8 ipad:flex-row ipad:w-10/12 ipad:m-auto"
+      >
+        <div class="mx-2 mb-6 dekstop:w-1/4 dekstop:mb-0">
+          <input
+            class="p-2 w-full rounded text-black mb-1"
+            type="number"
+            id="latitude"
+            placeholder="latitude"
+          />
+          <label for="latitude" class="italic text-sm">
+            <span class="text-red-500">*</span> gunakan (.) untuk tanda (,)
+          </label>
+        </div>
+        <div class="mx-2 mb-6 dekstop:w-1/4 dekstop:mb-0">
+          <input
+            class="p-2 w-full rounded text-black mb-1"
+            type="number"
+            id="longitude"
+            placeholder="longitude"
+          />
+          <label class="italic text-sm">
+            <span class="text-red-500">*</span> gunakan (.) untuk tanda (,)
+          </label>
+        </div>
+
+        <Button
+          style="bg-emerald-600 border rounded h-fit px-3 py-2 text-sm mx-2 dekstop:mr-0"
+          value="Search"
+          id="button"
+        />
+      </div>
+    </div>
+
+    <div class="box-list bg-slate-50 py-11 hidden">
+      <h1
+        class="font-jost text-4xl text-center capitalize mb-12 dekstop:text-5xl"
+      >
+        Lokasi yang kamu cari
+      </h1>
+      <div
+        id="list-area"
+        class="grid gap-y-4 m-auto dekstop:w-11/12 dekstop:grid-cols-2"
+      >
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import GetCoordinateLocation from "../scripts/getCoordinateLocation";
+
+  const listArea = document.getElementById("list-area");
+  const boxList = document.querySelector(".box-list");
+
+  document.getElementById("button").addEventListener("click", function () {
+    boxList.classList.remove("hidden");
+
+    Array.from(listArea.children).forEach((element) => {
+      element.parentNode.removeChild(element);
+    });
+
+    GetCoordinateLocation.GetCoordinate();
+  });
+</script>

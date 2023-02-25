@@ -1,0 +1,84 @@
+---
+export interface Props {
+  classNav?: string;
+}
+import Button from "./Button.astro";
+import Link from "./Link.astro";
+import { Icons } from "./Icons.astro";
+
+const { classNav } = Astro.props;
+---
+
+<div
+  class={`row-span-1 h-fit flex justify-between items-center px-8 py-2 sticky z-20 top-0 ${classNav}`}
+>
+  <div>
+    <Link
+      link="/Home/"
+      style="flex items-center font-averia-serif-libre ml-2 text-2xl dekstop:text-3xl"
+      title="Geocode API"
+      set:html={Icons[0].icon}
+    />
+  </div>
+  <div class="relative font-libre-franklin flex flex-col items-end">
+    <Button
+      style="w-fit ipad:hidden"
+      id="menu"
+      value=""
+      set:html={Icons[8].icon}
+    />
+    <div
+      id="menu-bar"
+      class="hidden w-44 right-0 mt-8 bg-slate-900 text-white rounded p-2 ipad:m-0 ipad:bg-transparent ipad:text-slate-900 ipad:w-full ipad:flex"
+    >
+      <div class="ipad:flex ipad:items-center">
+        <Link
+          link="/Home/"
+          style="flex items-center px-4 py-2 hover:bg-emerald-100 hover:text-emerald-800 text-sm hover:rounded ipad:mx-3 ipad:text-base"
+          title="Home"
+        />
+        <Link
+          link="/YourLocation/"
+          style="flex items-center px-4 py-2 hover:bg-emerald-100 hover:text-emerald-800 text-sm hover:rounded ipad:mx-3 ipad:text-base"
+          title="My Location"
+        />
+      </div>
+      <div class="relative ipad:mx-3">
+        <Button
+          style=" w-full flex items-center justify-center m-auto py-2 text-sm rounded hover:bg-emerald-100 hover:text-emerald-800 ipad:justify-center ipad:px-3 ipad:bg-slate-300 ipad:rounded ipad:hover:bg-slate-400 ipad:hover:text-slate-100 ipad:hover:shadow-lg ipad:text-base"
+          id="dropdown"
+          value="Search Location"
+          set:html={Icons[5].icon}
+        />
+        <div
+          class="w-64 show hidden absolute right-0 mt-3 text-slate-50 rounded-lg shadow-2xl ipad:mt-1"
+        >
+          <Link
+            link="/GetLocationCountry/"
+            style="flex items-center text-sm px-4 py-3 bg-slate-900 rounded-t-lg hover:bg-slate-300 hover:text-slate-900 ipad:text-base"
+            title="by Country"
+            set:html={Icons[6].icon}
+          />
+          <Link
+            link="/GetLocationCoordinate/"
+            style="flex items-center text-sm px-4 py-3 bg-slate-900 rounded-b-lg hover:bg-slate-300 hover:text-slate-900 ipad:text-base"
+            title="by Coordinate Point"
+            set:html={Icons[7].icon}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import menuButton from "../scripts/menu-button";
+
+  const dropdownButton = document.getElementById("dropdown");
+  const dropdown = document.querySelector(".show");
+
+  dropdownButton.addEventListener("click", () => {
+    dropdown.classList.toggle("hidden");
+  });
+
+  menuButton();
+</script>

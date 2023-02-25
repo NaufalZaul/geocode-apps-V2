@@ -1,0 +1,124 @@
+---
+import Navbar from "../components/Navbar.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Link from "../components/Link.astro";
+---
+
+<BaseLayout title="API Apps">
+  <div class="bg-emerald-400">
+    <Navbar classNav="bg-slate-100 shadow-lg" />
+    <div
+      class="grid self-center px-10 py-12 dekstop:grid-cols-2 dekstop:m-auto"
+    >
+      <div class="">
+        <img
+          src="/clay-banks-b5S4FrJb7yQ-unsplash.jpg"
+          class="w-4/5 m-auto rounded shadow-xl ipad:w-1/2"
+          alt=""
+        />
+      </div>
+      <div class="self-center mt-8 dekstop:w-4/5 dekstop:mt-0">
+        <h1 class="font-jost text-4xl mb-5 ipad:text-5xl dekstop:text-6xl">
+          Lorem ipsum dolor sit amet.
+        </h1>
+        <p class="font-libre-franklin text-lg ipad:text-xl">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt
+          aspernatur quibusdam placeat cumque earum assumenda, at saepe
+          perspiciatis impedit inventore tenetur, alias voluptatem corrupti
+          nesciunt praesentium iure quod nemo architecto! Lorem ipsum dolor sit
+          amet consectetur adipisicing elit.
+        </p>
+      </div>
+    </div>
+    <div class="bg-slate-100 py-8">
+      <div
+        class="grid gap-2 justify-items-center items-center px-8 py-11 mb-8 dekstop:grid-cols-2"
+      >
+        <h1 class="font-jost text-4xl mb-3 ipad:text-5xl">
+          Your Location Right Now
+        </h1>
+        <div class="text-center font-libre-franklin">
+          <p class="text-lg mb-6 dekstop:mb-3">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam,
+            quaerat. <span class="text-emerald-600"> Coordinate Point</span>
+          </p>
+          <Link
+            link="/GetLocationCoordinate/"
+            style="rounded px-3 py-2 bg-slate-900 text-slate-200 hover:shadow-lg hover:bg-slate-300 hover:text-slate-900"
+            title="Search Location"
+          />
+        </div>
+      </div>
+      <div
+        id="list-area"
+        class="grid gap-y-4 m-auto dekstop:grid-cols-2 dekstop:w-11/12"
+      >
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import API from "../scripts/API/api";
+
+  const listArea = document.getElementById("list-area");
+
+  const location = {
+    url: API.API_URL,
+  };
+
+  const listElement = (title, value) => {
+    return `<div class="w-4/5 bg-zinc-50 m-auto p-10 shadow-lg">
+              <h1 class="text-2xl font-bold mb-2 capitalize">${title}</h1>
+              <span class=" flex items-center font-light mb-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-4 h-4 mr-2"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M19.902 4.098a3.75 3.75 0 00-5.304 0l-4.5 4.5a3.75 3.75 0 001.035 6.037.75.75 0 01-.646 1.353 5.25 5.25 0 01-1.449-8.45l4.5-4.5a5.25 5.25 0 117.424 7.424l-1.757 1.757a.75.75 0 11-1.06-1.06l1.757-1.757a3.75 3.75 0 000-5.304zm-7.389 4.267a.75.75 0 011-.353 5.25 5.25 0 011.449 8.45l-4.5 4.5a5.25 5.25 0 11-7.424-7.424l1.757-1.757a.75.75 0 111.06 1.06l-1.757 1.757a3.75 3.75 0 105.304 5.304l4.5-4.5a3.75 3.75 0 00-1.035-6.037.75.75 0 01-.354-1z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                ${value}
+              </span>
+              <p class="font-light">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Incidunt aspernatur quibusdam placeat cumque earum assumenda, at
+              </p>
+            </div>`;
+  };
+
+  const objectReturn = () => {
+    return [
+      "latitude",
+      "longitude",
+      "continent",
+      "lookupSource",
+      "city",
+      "countryName",
+      "countryCode",
+      "principalSubdivision",
+      "principalSubdivisionCode",
+    ];
+  };
+
+  const getMyLocation = await fetch(location.url)
+    .then((e) => e.json())
+    .then((e) => {
+      return e;
+    })
+    .catch((err) => console.error(err));
+
+  for (const key in getMyLocation) {
+    const obj = objectReturn().find((search) => search == key);
+
+    if (obj != undefined) {
+      const element = getMyLocation[key];
+      listArea.innerHTML += listElement(obj, element);
+    }
+  }
+</script>
